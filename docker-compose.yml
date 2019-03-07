@@ -1,0 +1,24 @@
+version: '3'
+services:
+  flaskapp:
+    image: flaskapp
+    networks:
+      - backend
+    expose:
+      - "5000"
+    volumes: 
+      - ./uwsgi/uwsgi.ini:/app/uwsgi.ini
+    command: uwsgi --ini /app/uwsgi.ini
+  
+  nginx:
+    image: nginx
+    networks:
+      - backend
+    ports: 
+      - "8080:80"
+    volumes:
+      - ./nginx/flaskapp.conf:/etc/nginx/conf.d/default.conf
+
+networks:
+  backend:
+    driver: bridge
