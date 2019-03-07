@@ -1,6 +1,7 @@
 version: '3'
 services:
   flaskapp:
+    build: ./uwsgi
     image: flaskapp
     networks:
       - backend
